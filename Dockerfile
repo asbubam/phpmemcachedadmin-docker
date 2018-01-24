@@ -1,5 +1,5 @@
 FROM ubuntu:14.04
-MAINTAINER love.nyberg@lovemusic.se
+LABEL maintainer love.nyberg@lovemusic.se
 
 # Install Nginx and fix php5-fpm
 RUN apt-get update && \
