@@ -21,15 +21,17 @@ RUN apt-get update && \
 RUN rm -Rf /etc/nginx/conf.d/* && \
     mkdir -p /etc/nginx/sites-available/ && \
     mkdir -p /etc/nginx/sites-enabled/ && \
-    mkdir -p /etc/nginx/ssl/
+    mkdir -p /etc/nginx/ssl/ && \
+		mkdir -p /usr/share/nginx/html/
 ADD ./nginx-site.conf /etc/nginx/sites-available/default.conf
 RUN rm /etc/nginx/sites-enabled/default && \
     ln -s /etc/nginx/sites-available/default.conf /etc/nginx/sites-enabled/default.conf
 
 # Install phpmemcacheadmin
-RUN wget http://phpmemcacheadmin.googlecode.com/files/phpMemcachedAdmin-1.2.2-r262.tar.gz && \
-    tar xfz phpMemcachedAdmin-1.2.2-r262.tar.gz -C /usr/share/nginx/html/ && \
-    rm phpMemcachedAdmin-1.2.2-r262.tar.gz
+RUN wget --no-check-certificate https://github.com/elijaa/phpmemcachedadmin/archive/1.3.0.tar.gz && \
+    tar xfz 1.3.0.tar.gz && \
+		mv phpmemcachedadmin-1.3.0/* /usr/share/nginx/html/ && \
+    rm 1.3.0.tar.gz
 
 # Define mountable directories
 RUN chown -R www-data:www-data /usr/share/nginx/html
